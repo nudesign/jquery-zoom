@@ -97,17 +97,18 @@ App.zoom._Zoom.prototype._populate = function (self) {
 // - binded events
 // ==========================================
 App.zoom._Zoom.prototype._hoverIn = function (self, e) {
+
   self._populate(self);
   if (self.target_autohide) {
     if (self.target_substitute) $(self.target_substitute).addClass('is-hidden');
-    if ($(self.target_min)) {
-      $(self.el).append('<div id="'+self.objects.min.el+'"></div>');
-      $('#'+self.objects.min.el).css({ position: 'absolute', 'z-index': '9999', width: self.objects.min.width + 'px', height: self.objects.min.height + 'px', border: '1px solid #000'});
-    } 
-    $(self.target)
-      .removeClass('is-hidden')
-      .css('background', 'url('+$(self.el).children('img').attr('src')+') transparent no-repeat');
+    $(self.target).removeClass('is-hidden');
   }
+  if ($(self.target_min)) {
+    $(self.el).append('<div id="'+self.objects.min.el+'"></div>');
+    $('#'+self.objects.min.el).css({ position: 'absolute', 'z-index': '9999', width: self.objects.min.width + 'px', height: self.objects.min.height + 'px', border: '1px solid #000'});
+  } 
+  $(self.target).css('background', 'url('+$(self.el).children('img').attr('src')+') transparent no-repeat');
+  
 }
 App.zoom._Zoom.prototype._hoverOut = function (self, e) {
   if (self.target_autohide) {
@@ -117,8 +118,10 @@ App.zoom._Zoom.prototype._hoverOut = function (self, e) {
       .addClass('is-hidden')
       .css('background-image', 'none');
   }
+
 }
 App.zoom._Zoom.prototype._hoverMouseMove = function (self, e) {
+
   var mousepos = {
       x: (e.pageX - $(self.el).offset().left),
       y: (e.pageY - $(self.el).offset().top)
@@ -134,4 +137,5 @@ App.zoom._Zoom.prototype._hoverMouseMove = function (self, e) {
 
   if (self.target_min) $('#'+self.objects.min.el).css({ left: targetpos.x + 'px', top: targetpos.y + 'px' });
   $(self.target).css('background-position', (targetpos.x * -1) + 'px ' + (targetpos.y * -1) + 'px' );
+
 }
